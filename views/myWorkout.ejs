@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <h1>My Workout Page</h1>
+
+    <script>
+    const userId = localStorage.getItem('userId');
+
+// Validate userId
+if (!userId) {
+  console.error('Invalid userId');
+} else {
+  const url = `/api/workouts/getAllWorkoutsByCId?userId=${userId}`; // Adjust the URL endpoint
+
+  fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Handle the response data as needed
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('Error fetching user profile:', error);
+    });
+}
+    </script>
+</body>
+</html>
